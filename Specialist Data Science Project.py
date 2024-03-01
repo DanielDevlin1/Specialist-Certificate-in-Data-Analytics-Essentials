@@ -431,3 +431,40 @@ def calculate_square(x):
 result = calculate_square(5)
 print(result)  
 
+# Import necessary libraries
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+
+# Define features (X) and target variable (y)
+X = pro_df[['AGE', 'AVG_CARRY_DISTANCE', 'SG_PUTTING_PER_ROUND', 'TOTAL_SG:PUTTING']]
+y = pro_df['AVG_SCORE']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Standardize features by removing the mean and scaling to unit variance
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Initialize and train the linear regression model
+model = LinearRegression()
+model.fit(X_train_scaled, y_train)
+
+# Make predictions on the testing set
+y_pred = model.predict(X_test_scaled)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+print('Mean Squared Error:', mse)
+
+# Example of using the model to predict a single data point
+new_data_point = np.array([[26, 300, -0.003, -2]]) 
+new_data_point_scaled = scaler.transform(new_data_point)
+predicted_avg_score = model.predict(new_data_point_scaled)
+print('Predicted AVG_SCORE:', predicted_avg_score)
