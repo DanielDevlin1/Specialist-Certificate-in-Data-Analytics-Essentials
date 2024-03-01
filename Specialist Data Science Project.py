@@ -331,7 +331,7 @@ Scratch_data = {
 
 
 # Create a data frame from the dictionary
-Scratch_data_df = pd.DataFrame(Scratch_data)
+Scratch_data_df = pd.DataFrame(scratch_data)
 
 
 # In[65]:
@@ -357,7 +357,7 @@ print(merged_df)
 
 
 # Merging Dataframes
-merge_df = pro_df.merge(scratch_df, left_on='AVG_SCORE', right_on='AVG_SCORE', how='left')
+merge_df = pro_df.merge(scratch_data_df, left_on='AVG_SCORE', right_on='AVG_SCORE', how='left')
 print(merge_pga)
 
 
@@ -390,7 +390,7 @@ print(type(np_pro))
 # Import numpy
 import numpy as np
 
-# Create a numpy array from scratch_data : np_scratch
+# Create a numpy array from scratch_data_df : np_scratch
 np_Scratch = np.array(Scratch_data_df)
 
 # Print out np_scratch
